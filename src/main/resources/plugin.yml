@@ -1,0 +1,4 @@
+name: KaBoomEnchants
+version: '1.0'
+main: de.kboomgaarden.kaboomenchants.KaBoomPlugin
+api-version: '1.21'
