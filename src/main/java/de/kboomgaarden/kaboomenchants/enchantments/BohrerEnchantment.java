@@ -1,41 +1,25 @@
-package de.kboomgaarden.kaboomenchants;
+package de.kboomgaarden.kaboomenchants.enchantments;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.inventory.ItemStack;
 
-public class BlockBreakListener implements Listener {
+public class BohrerEnchantment {
 
-    @EventHandler
-    public void onBlockBreak(BlockBreakEvent event){
+    // diese Methode wird später von unserem Listener (Manager) aufgerufen
+    public static void anwenden(BlockBreakEvent event){
         // 1. Wir holen uns den Spieler
         Player player = event.getPlayer();
-
         // 2. Wir erfassen den abgebauten Block
         Block centerBlock = event.getBlock();
-
-        // 3. Wir prüfen das Item in der Hand des Spielers
-        ItemStack itemInHand = player.getInventory().getItemInMainHand();
-
-        // 4. Wir wandeln das material des Items in einen Text um.
-        String itemName = itemInHand.getType().name();
-
-        // Filter für alle Sptizhacken und Schaufel
-        if (itemName.endsWith("_PICKAXE") || itemName.endsWith("_SHOVEL")){
-
             // wir speichern die exakten Koordinaten des abgebauten Blocks
             int centerX = centerBlock.getX();
             int centerY = centerBlock.getY();
             int centerZ = centerBlock.getZ();
 
-            // Wir definieren die Start- und Endpunkte für den Bohrer
-            // Standargemäß ist das genau die Mitte (ein flacher 3x3 Bereich)
-            // 1 Block nach links/rechts 1 Block nach oben/unten
+            // Start- und Endpunkte (Standard: flach 3x3)
             int startX = centerX - 1;
             int endX = centerX + 1;
             int startY = centerY - 1;
@@ -46,11 +30,11 @@ public class BlockBreakListener implements Listener {
             // Wir lesen die Blickrichtung des Spielers aus
             // getPitch() gibt die Neigung des Kopfes in Grad (-90 bis 90)
             float pitch = player.getLocation().getPitch();
-
             // getFacing gibt die Himmelsrichtung (North, South, East, West)
             BlockFace facing = player.getFacing();
 
             // jetzt schieben wir den Bohrer in die Tiefe, je nachdem wo du hinschaust
+            // Stufe 1: 3 Blöcke tief
             if (pitch > 45){    // Spieler guckt stark nach unten, Bohrer geht tief in den Boden
                 startY = centerY - 2;
                 endY = centerY;
@@ -87,7 +71,7 @@ public class BlockBreakListener implements Listener {
 
                         // Schutzmaßnahme. Wir können kein Bedrock abbauen
                         if (currentBlock.getType() != Material.BEDROCK) {
-                            // breakNaturally() baut den block ab und dropt die Items
+                            // breakNaturally() baut den block ab und dropt die Itemsm
                             currentBlock.breakNaturally();
                         }
                     }
@@ -96,4 +80,3 @@ public class BlockBreakListener implements Listener {
         }
     }
 
-}

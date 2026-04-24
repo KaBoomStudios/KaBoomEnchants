@@ -1,5 +1,6 @@
 package de.kboomgaarden.kaboomenchants;
 
+import de.kboomgaarden.kaboomenchants.listeners.BlockBreakListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class KaBoomPlugin extends JavaPlugin {
