@@ -9,7 +9,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 public class BohrerEnchantment {
 
     // diese Methode wird später von unserem Listener (Manager) aufgerufen
-    public static void anwenden(BlockBreakEvent event){
+    public static void anwenden(BlockBreakEvent event, int level){
         // 1. Wir holen uns den Spieler
         Player player = event.getPlayer();
         // 2. Wir erfassen den abgebauten Block
@@ -44,7 +44,7 @@ public class BohrerEnchantment {
             int depth = level * 2;
 
             // jetzt schieben wir den Bohrer in die Tiefe, je nachdem wo du hinschaust
-            // Wir nutzen jetzt unsere Dynamische Variable depth
+            // wir nutzen jetzt unsere dynamische Variable depth
             if (pitch > 45){    // Spieler guckt stark nach unten, Bohrer geht tief in den Boden
                 startY = centerY - depth;
                 endY = centerY;
@@ -52,7 +52,7 @@ public class BohrerEnchantment {
                 startY = centerY;
                 endY = centerY + depth;
             } else {
-                // Spieler guckt gerade aus. Wir prüfen die Himmelsrichtung
+                // Spieler guckt geradeaus. Wir prüfen die Himmelsrichtung
                 if (facing == BlockFace.NORTH){
                     // Norden ist bei Minecraft auf der Z-Achse im Minus Bereich
                     startZ = centerZ - depth;
@@ -71,7 +71,7 @@ public class BohrerEnchantment {
                     endX = centerX + depth;
                 }
             }
-            // Angepasste Schleife. Wir nutzen die dynamischen Start- und Enwerte die wir oben berechnet haben
+            // Angepasste Schleife. Wir nutzen die dynamischen Start- und Endwerte die wir oben berechnet haben
             for (int x = startX; x <= endX; x++) {
                 for (int y = startY; y <= endY; y++) {
                     for (int z = startZ; z <= endZ; z++) {

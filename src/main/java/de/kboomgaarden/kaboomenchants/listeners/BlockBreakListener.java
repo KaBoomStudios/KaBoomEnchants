@@ -23,14 +23,19 @@ public class BlockBreakListener implements Listener {
         // Wenn das Item keine meta hat (zb. leere Hand), brechen wir hier ab
         if (meta == null) return;
         // wir erstellen den gleichen Schlüssel wie im Befehl
-        // Hinweis: Wir brauchen hier zugriff auf die Hauptklasse für den Key!
-        // Da wir im Listener sind können wir das Plugin einfach holen
+        // Hinweis: Wir brauchen, hier zugriff auf die Hauptklasse für den Key!
+        // Da wir im Listener sind, können wir das Plugin einfach holen
         NamespacedKey key = new NamespacedKey(JavaPlugin.getPlugin(KaBoomPlugin.class), "bohrer_level");
 
         // Die eigentliche kontrolle: Hat das Item unser Etikett
         if (meta.getPersistentDataContainer().has(key, PersistentDataType.INTEGER)){
-            // Nur wenn das Etikett da ist darf der Bohrer loslegen
-            BohrerEnchantment.anwenden(event);
+            // wir lesen die Zahl vom Etikett ab.
+            // getOrDefault bedeutet: Lese die Zahl. Falls das schiefgeht,
+            // nutze als absolute Sicherheitsmaßnahme die 1.
+            int level = meta.getPersistentDataContainer().getOrDefault(key, PersistentDataType.INTEGER, 1);
+
+            // Nur wenn das Etikett da ist, darf der Bohrer loslegen
+            BohrerEnchantment.anwenden(event, level);
         }
     }
 
