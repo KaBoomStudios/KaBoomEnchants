@@ -19,13 +19,18 @@ public class BohrerEnchantment {
             int centerY = centerBlock.getY();
             int centerZ = centerBlock.getZ();
 
-            // Start- und Endpunkte (Standard: flach 3x3)
-            int startX = centerX - 1;
-            int endX = centerX + 1;
-            int startY = centerY - 1;
-            int endY = centerY + 1;
-            int startZ = centerZ - 1;
-            int endZ = centerZ + 1;
+            // Dynamischer Radius
+            // Level 1 = 3x3
+            // Level 2 = 5x5
+            int radius = level;
+
+            // Start- und Endpunkte
+            int startX = centerX - radius;
+            int endX = centerX + radius;
+            int startY = centerY - radius;
+            int endY = centerY + radius;
+            int startZ = centerZ - radius;
+            int endZ = centerZ + radius;
 
             // Wir lesen die Blickrichtung des Spielers aus
             // getPitch() gibt die Neigung des Kopfes in Grad (-90 bis 90)
@@ -33,32 +38,37 @@ public class BohrerEnchantment {
             // getFacing gibt die Himmelsrichtung (North, South, East, West)
             BlockFace facing = player.getFacing();
 
+            // Dynamische Tiefe in die Wand hinein
+            // Level 1 = 2 tief (Zentrum +2)
+            // Level 2 = 4 tief (Zentrum +4)
+            int depth = level * 2;
+
             // jetzt schieben wir den Bohrer in die Tiefe, je nachdem wo du hinschaust
-            // Stufe 1: 3 Blöcke tief
+            // Wir nutzen jetzt unsere Dynamische Variable depth
             if (pitch > 45){    // Spieler guckt stark nach unten, Bohrer geht tief in den Boden
-                startY = centerY - 2;
+                startY = centerY - depth;
                 endY = centerY;
             } else if (pitch < -45) {   // Spieler guckt stark nach oben, Bohrer geht tief in die decke
                 startY = centerY;
-                endY = centerY + 2;
+                endY = centerY + depth;
             } else {
                 // Spieler guckt gerade aus. Wir prüfen die Himmelsrichtung
                 if (facing == BlockFace.NORTH){
                     // Norden ist bei Minecraft auf der Z-Achse im Minus Bereich
-                    startZ = centerZ - 2;
+                    startZ = centerZ - depth;
                     endZ = centerZ;
                 } else if (facing == BlockFace.SOUTH) {
                     // Süden ist auf der Z-Achse im Plus-bereich
                     startZ = centerZ;
-                    endZ = centerZ + 2;
+                    endZ = centerZ + depth;
                 } else if (facing == BlockFace.WEST) {
                     // Westen ist auf der X-Achse im Minus-Bereich
-                    startX = centerX - 2;
+                    startX = centerX - depth;
                     endX = centerX;
                 } else if (facing == BlockFace.EAST) {
                     // Osten ist auf der X-Achse im Plus-Bereich
                     startX = centerX;
-                    endX = centerX + 2;
+                    endX = centerX + depth;
                 }
             }
             // Angepasste Schleife. Wir nutzen die dynamischen Start- und Enwerte die wir oben berechnet haben
