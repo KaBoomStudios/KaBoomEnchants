@@ -4,6 +4,7 @@ import de.kboomgaarden.kaboomenchants.commands.KaBoomCommand;
 import de.kboomgaarden.kaboomenchants.listeners.AnvilListener;
 import de.kboomgaarden.kaboomenchants.listeners.BlockBreakListener;
 import de.kboomgaarden.kaboomenchants.listeners.EnchantmentTableListener;
+import de.kboomgaarden.kaboomenchants.listeners.VillagerTradeListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class KaBoomPlugin extends JavaPlugin {
@@ -17,6 +18,8 @@ public class KaBoomPlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
         getServer().getPluginManager().registerEvents(new AnvilListener(), this);
         getServer().getPluginManager().registerEvents(new EnchantmentTableListener(), this);
+        getServer().getPluginManager().registerEvents(new VillagerTradeListener(), this);
+
 
         // Entwicklerbefehl um item zu geben
         getCommand("kaboom").setExecutor(new KaBoomCommand(this));
