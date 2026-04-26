@@ -1,6 +1,7 @@
 package de.kboomgaarden.kaboomenchants;
 
 import de.kboomgaarden.kaboomenchants.commands.KaBoomCommand;
+import de.kboomgaarden.kaboomenchants.listeners.AnvilListener;
 import de.kboomgaarden.kaboomenchants.listeners.BlockBreakListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -13,6 +14,7 @@ public class KaBoomPlugin extends JavaPlugin {
 
         // Hier melden wir den Listener offiziell beim Server an
         getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
+        getServer().getPluginManager().registerEvents(new AnvilListener(), this);
 
         // Entwicklerbefehl um item zu geben
         getCommand("kaboom").setExecutor(new KaBoomCommand(this));

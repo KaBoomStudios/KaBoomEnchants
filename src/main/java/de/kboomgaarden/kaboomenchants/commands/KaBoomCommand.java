@@ -11,6 +11,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class KaBoomCommand implements CommandExecutor {
     private final JavaPlugin plugin;
@@ -30,10 +33,10 @@ public class KaBoomCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        // Wir legen ein Standard level fest, falls der Spieler keine Zahl eingibt
+        // Standard level festlegen, falls der Spieler keine Zahl eingibt
         int level = 1;
 
-        // Wir prüfen ob der spieler eine Zahl eingegeben hat.
+        // prüfen ob der spieler eine Zahl eingegeben hat.
         if (args.length > 0){
             try {
                 // wir versuchen, den Text aus dem Chat in einen Integer umzuwandeln.
@@ -45,24 +48,27 @@ public class KaBoomCommand implements CommandExecutor {
             }
         }
 
-        // wir erschaffen unsere nackte Diamantspitzhacke
-        ItemStack pickaxe = new ItemStack(Material.DIAMOND_PICKAXE);
-        ItemMeta meta = pickaxe.getItemMeta();
+        // aus der Spitzhacke wird ein verzaubertes Buch
+        ItemStack item = new ItemStack(Material.ENCHANTED_BOOK);
+        ItemMeta meta = item.getItemMeta();
 
         if (meta != null) {
             // hier erschaffen wir unser unsichtbares Etikett
             NamespacedKey key = new NamespacedKey(plugin, "bohrer_level");
             // hier nutzen wir die dynamische variable "level" anstatt der festen 1
             meta.getPersistentDataContainer().set(key, PersistentDataType.INTEGER, level);
-            // ein Name damit ich sie im Inventar erkenne
-            meta.setDisplayName("§6Tunnelbohrer Level " + level);
+
+            List<String> lore = new ArrayList<>();
+            // Lore exakt wie im Amboss benennen, für eine fehlerfrei Illusion
+            lore.add("§7Bohrer " + level);
+            meta.setLore(lore);
             // Die veränderten daten wieder auf das Item kleben
-            pickaxe.setItemMeta(meta);
+            item.setItemMeta(meta);
         }
 
         // Dem Spieler das Item ins Inventar legen
-        player.getInventory().addItem(pickaxe);
-        player.sendMessage("§aDu hast die Bohrer-Spitzhacke (Stufe " + level + ")  erhalten!");
+        player.getInventory().addItem(item);
+        player.sendMessage("§aDu hast das Zauberbuch (Stufe " + level + ")  erhalten!");
         return true;
     }
 }
