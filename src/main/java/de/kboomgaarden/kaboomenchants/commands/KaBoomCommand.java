@@ -33,42 +33,74 @@ public class KaBoomCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        // Standard level festlegen, falls der Spieler keine Zahl eingibt
-        int level = 1;
+        // Abfrage ob überhaupt ein Argument (bohrer oder baumesser) eingegeben wurde
+        if (args.length == 0) {
+            player.sendMessage("§cBitte nutze: /kaboom <bohrer|baumesser> [level]");
+            return true;
+        }
 
-        // prüfen ob der spieler eine Zahl eingegeben hat.
-        if (args.length > 0){
-            try {
-                // wir versuchen, den Text aus dem Chat in einen Integer umzuwandeln.
-                level = Integer.parseInt(args[0]);
-            } catch (NumberFormatException e){
-                // Falls der Spieler quatsch eingibt.
-                player.sendMessage("§cBitte gib eine gültige Zahl ein!");
-                return true;
+        String type = args[0].toLowerCase();
+
+        if (type.equals("bohrer")) {
+            int level = 1;
+
+            // prüfen ob der spieler eine Zahl eingegeben hat.
+            if (args.length > 1) {
+                try {
+                    // wir versuchen, den Text aus dem Chat in einen Integer umzuwandeln.
+                    level = Integer.parseInt(args[1]);
+                } catch (NumberFormatException e) {
+                    // Falls der Spieler quatsch eingibt.
+                    player.sendMessage("§cBitte gib eine gültige Zahl ein!");
+                    return true;
+                }
             }
+
+            // aus der Spitzhacke wird ein verzaubertes Buch
+            ItemStack item = new ItemStack(Material.ENCHANTED_BOOK);
+            ItemMeta meta = item.getItemMeta();
+
+            if (meta != null) {
+                // hier erschaffen wir unser unsichtbares Etikett
+                NamespacedKey key = new NamespacedKey(plugin, "bohrer_level");
+                // hier nutzen wir die dynamische variable "level" anstatt der festen 1
+                meta.getPersistentDataContainer().set(key, PersistentDataType.INTEGER, level);
+
+                List<String> lore = new ArrayList<>();
+                // Lore exakt wie im Amboss benennen, für eine fehlerfrei Illusion
+                lore.add("§7Bohrer " + level);
+                meta.setLore(lore);
+                // Die veränderten daten wieder auf das Item kleben
+                item.setItemMeta(meta);
+            }
+
+            // Dem Spieler das Item ins Inventar legen
+            player.getInventory().addItem(item);
+            player.sendMessage("§aDu hast das Zauberbuch (Stufe " + level + ")  erhalten!");
+
+        } else if (type.equals("baumesser")) {
+            // Für den test direkt eine fertig verzauberte Axt ausgeben
+            ItemStack item = new ItemStack(Material.DIAMOND_AXE);
+            ItemMeta meta = item.getItemMeta();
+
+            if (meta != null) {
+                NamespacedKey key = new NamespacedKey(plugin, "baumesser");
+
+                // Der Baumesser hat nur 1 Stufe deswegen wird der Wert fest auf 1 gesetzt.
+                meta.getPersistentDataContainer().set(key, PersistentDataType.INTEGER, 1);
+
+                List<String> lore = new ArrayList<>();
+                // keine Zahl in der Lore, da es keine hähere Stufe gibt
+                lore.add("§7Baumesser");
+                meta.setLore(lore);
+                item.setItemMeta(meta);
+            }
+            player.getInventory().addItem(item);
+            player.sendMessage("§aDu hast eine Diamantaxt (Baumesser) erhalten!");
+        } else {
+            // Fehlermeldung bei falscher eingabe
+            player.sendMessage("§cUnbekannte Verzauberung. Nutze: /kaboom <bohrer|baumesser>");
         }
-
-        // aus der Spitzhacke wird ein verzaubertes Buch
-        ItemStack item = new ItemStack(Material.ENCHANTED_BOOK);
-        ItemMeta meta = item.getItemMeta();
-
-        if (meta != null) {
-            // hier erschaffen wir unser unsichtbares Etikett
-            NamespacedKey key = new NamespacedKey(plugin, "bohrer_level");
-            // hier nutzen wir die dynamische variable "level" anstatt der festen 1
-            meta.getPersistentDataContainer().set(key, PersistentDataType.INTEGER, level);
-
-            List<String> lore = new ArrayList<>();
-            // Lore exakt wie im Amboss benennen, für eine fehlerfrei Illusion
-            lore.add("§7Bohrer " + level);
-            meta.setLore(lore);
-            // Die veränderten daten wieder auf das Item kleben
-            item.setItemMeta(meta);
-        }
-
-        // Dem Spieler das Item ins Inventar legen
-        player.getInventory().addItem(item);
-        player.sendMessage("§aDu hast das Zauberbuch (Stufe " + level + ")  erhalten!");
         return true;
     }
 }
