@@ -79,7 +79,7 @@ public class BaumesserListener implements Listener {
 
             for (int x = -1; x <= 1; x++) {
                 for (int y = -1; y <= 1; y++) {
-                    for (int z = -1; z < 1; z++) {
+                    for (int z = -1; z <= 1; z++) {
                         Block neighbor = current.getRelative(x, y, z);
                         String neighborKey = neighbor.getX() + "," + neighbor.getY() + "," + neighbor.getZ();
 
