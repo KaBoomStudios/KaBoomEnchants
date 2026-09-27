@@ -62,6 +62,11 @@ public final class KaBoomEnchants extends JavaPlugin {
         }
     }
 
+    /** Die Texte in der eingestellten Sprache; nach einem Reload dasselbe Objekt mit neuem Inhalt. */
+    public Messages messages() {
+        return messages;
+    }
+
     /** Gemeinsamer Abbau „wie vom Spieler“ für alle Verzauberungen, die mehrere Blöcke abbauen. */
     public PlayerBlockBreaker blockBreaker() {
         return blockBreaker;

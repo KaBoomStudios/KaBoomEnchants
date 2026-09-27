@@ -33,6 +33,10 @@ give:
   given-dropped: "<prefix><white><item></white> <green>mit</green> <white><enchantment></white> <green>an</green> <white><player></white> <green>gegeben.</green> <yellow>Das Inventar war voll, das Item liegt vor den Füßen des Spielers.</yellow>"
   received: "<prefix><green>Du hast</green> <white><item></white> <green>mit</green> <white><enchantment></white> <green>erhalten.</green>"
 
+arise:
+  # Erscheint über der Hotbar, nachdem ein Totem mit Arise den Spieler gerettet hat.
+  saves-left: "<gold>Arise</gold> <dark_gray>|</dark_gray> <gray>Rettungen auf diesem Totem:</gray> <white><count></white>"
+
 list:
   header: "<prefix><gray>Verzauberungen (</gray><white><count></white><gray>):</gray>"
   line: "<dark_gray> ▸</dark_gray> <white><name></white> <dark_gray>|</dark_gray> <gray><id></gray> <dark_gray>|</dark_gray> <gray>höchste Stufe</gray> <white><max></white> <dark_gray>|</dark_gray> <sources>"

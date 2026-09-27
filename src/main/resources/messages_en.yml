@@ -33,6 +33,10 @@ give:
   given-dropped: "<prefix><green>Gave</green> <white><item></white> <green>with</green> <white><enchantment></white> <green>to</green> <white><player></white><green>.</green> <yellow>The inventory was full, the item was dropped at the player's feet.</yellow>"
   received: "<prefix><green>You received</green> <white><item></white> <green>with</green> <white><enchantment></white><green>.</green>"
 
+arise:
+  # Shown above the hotbar after a totem with Arise saved the player.
+  saves-left: "<gold>Arise</gold> <dark_gray>|</dark_gray> <gray>saves left on this totem:</gray> <white><count></white>"
+
 list:
   header: "<prefix><gray>Enchantments (</gray><white><count></white><gray>):</gray>"
   line: "<dark_gray> ▸</dark_gray> <white><name></white> <dark_gray>|</dark_gray> <gray><id></gray> <dark_gray>|</dark_gray> <gray>max. level</gray> <white><max></white> <dark_gray>|</dark_gray> <sources>"
