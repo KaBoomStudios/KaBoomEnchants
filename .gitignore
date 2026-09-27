@@ -1,38 +1,27 @@
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# Arbeitsanweisung fuer die Entwicklung, gehoert nicht in das veroeffentlichte Repository
+CLAUDE.md
 
-### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
-*.iws
+# Lokale Build-Einstellungen, enthalten Pfade dieses Rechners
+gradle-local.properties
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Reste des frueheren Maven-Builds
+target/
+
+# Testserver: Rueckfallordner, falls kein externer Pfad gesetzt ist
+run/
+
+# IDE
+.idea/
 *.iml
 *.ipr
-
-### Eclipse ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
+*.iws
 .vscode/
 
-### Mac OS ###
+# Betriebssystem
+Thumbs.db
 .DS_Store

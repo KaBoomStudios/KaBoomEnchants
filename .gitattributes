@@ -1,0 +1,9 @@
+# Zeilenenden festlegen, damit das Projekt unter Windows, Linux und macOS gleich aussieht.
+* text=auto eol=lf
+
+# Das Wrapper-Skript wird von einer Shell gelesen und braucht LF, sonst startet es
+# unter Linux und macOS nicht. Die Windows-Variante braucht umgekehrt CRLF.
+gradlew text eol=lf
+*.bat text eol=crlf
+
+*.jar binary
