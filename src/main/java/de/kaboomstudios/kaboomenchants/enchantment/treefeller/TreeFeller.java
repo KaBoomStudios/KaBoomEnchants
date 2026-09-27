@@ -1,9 +1,12 @@
 package de.kaboomstudios.kaboomenchants.enchantment.treefeller;
 
+import de.kaboomstudios.kaboomenchants.KaBoomEnchants;
 import de.kaboomstudios.kaboomenchants.enchantment.CustomEnchantment;
 import io.papermc.paper.registry.data.EnchantmentRegistryEntry.EnchantmentCost;
 import io.papermc.paper.registry.keys.tags.ItemTypeTagKeys;
 import io.papermc.paper.registry.tag.TagKey;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemType;
 
@@ -46,5 +49,10 @@ public final class TreeFeller implements CustomEnchantment {
     @Override
     public int anvilCost() {
         return 4;
+    }
+
+    @Override
+    public List<Listener> createListeners(final KaBoomEnchants plugin, final Enchantment registered) {
+        return List.of(new TreeFellerListener(plugin, this, registered, plugin.blockBreaker()));
     }
 }

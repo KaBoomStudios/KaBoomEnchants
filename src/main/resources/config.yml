@@ -100,6 +100,21 @@ enchantments:
     netherite-upgrade: false
     weight: 1
     give-item: diamond_axe
+    # [reload] Every further log is mined as if the player mined it, so protection plugins are
+    # asked for each one. Only logs of the same wood type count; leaves are left to decay.
+    #
+    # Share of the normal tool damage each further log costs, from 0.0 to 1.0 (see tunnel_bore).
+    durability-per-extra-block: 0.1
+    # Sneaking fells only the single log.
+    sneak-disables: true
+    # Upper limit of further logs per tree, protects the server from huge structures.
+    max-blocks: 1500
+    # Only natural trees are felled: at least this many leaves grown by the game have to touch
+    # the logs. Leaves placed by players never count, so log houses stay standing, even with
+    # leaves as decoration. Nether trees count wart blocks and shroomlights instead of leaves;
+    # the game does not mark those as placed, so a nether wart roof on a stem house counts.
+    # 0 turns the check off.
+    min-natural-leaves: 4
 
   # Arise: totem of undying, levels I to III. Saves the holder 2, 3 or 4 times in total.
   # After each save the totem comes back one level lower; level I turns into a plain totem.
