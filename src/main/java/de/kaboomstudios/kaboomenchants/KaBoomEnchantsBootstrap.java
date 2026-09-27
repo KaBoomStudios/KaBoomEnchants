@@ -1,6 +1,7 @@
 package de.kaboomstudios.kaboomenchants;
 
 import de.kaboomstudios.kaboomenchants.config.EnchantmentSettings;
+import de.kaboomstudios.kaboomenchants.config.LoadMode;
 import de.kaboomstudios.kaboomenchants.config.PluginFiles;
 import de.kaboomstudios.kaboomenchants.config.PluginSettings;
 import de.kaboomstudios.kaboomenchants.config.Sources;
@@ -10,7 +11,9 @@ import de.kaboomstudios.kaboomenchants.registration.EnchantmentNames;
 import de.kaboomstudios.kaboomenchants.registration.EnchantmentRegistration;
 import io.papermc.paper.plugin.bootstrap.BootstrapContext;
 import io.papermc.paper.plugin.bootstrap.PluginBootstrap;
+import io.papermc.paper.plugin.bootstrap.PluginProviderContext;
 import net.kyori.adventure.text.Component;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -27,18 +30,26 @@ import java.util.Map;
 @SuppressWarnings("UnstableApiUsage")
 public final class KaBoomEnchantsBootstrap implements PluginBootstrap {
 
+    /** Der beim Start gelesene Stand; die Hauptklasse bekommt ihn, statt die Dateien erneut zu lesen. */
+    private PluginSettings settings;
+
     @Override
     public void bootstrap(final BootstrapContext context) {
         final Path dataDirectory = context.getDataDirectory();
         PluginFiles.writeMissingDefaults(dataDirectory, context.getLogger());
 
         final List<CustomEnchantment> enchantments = EnchantmentCatalog.ALL;
-        final PluginSettings settings = PluginSettings.load(dataDirectory, enchantments, context.getLogger());
+        settings = PluginSettings.load(dataDirectory, enchantments, LoadMode.STARTUP, context.getLogger());
         final Map<String, Component> names =
                 EnchantmentNames.load(dataDirectory, settings.language(), enchantments, context.getLogger());
 
         new EnchantmentRegistration(enchantments, settings, names).register(context.getLifecycleManager());
         logSummary(context, enchantments, settings);
+    }
+
+    @Override
+    public JavaPlugin createPlugin(final PluginProviderContext context) {
+        return new KaBoomEnchants(settings);
     }
 
     /** Eine Zeile je Verzauberung, damit der Betreiber im Log sieht, was nach dem Start gilt. */

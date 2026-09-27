@@ -2,6 +2,8 @@
 # <prefix> inserts the prefix defined below. Other angle brackets, such as <player>, are
 # placeholders filled in by the plugin and have to stay in place.
 #
+# Colors: success green, errors red, hints gray, attention yellow, values and names white.
+#
 # This file is also the fallback: whenever another language file misses an entry,
 # the text from here is used instead.
 
@@ -13,3 +15,57 @@ enchantment-name:
   tunnel_bore: "Tunnel Bore"
   tree_feller: "Tree Feller"
   arise: "Arise"
+
+plugin:
+  reloaded: "<prefix><green>Configuration and language files reloaded.</green>"
+  reload-failed: "<prefix><red>Reload failed.</red> <gray>The previous settings stay active. See the server console for details.</gray>"
+  restart-needed: "<prefix><yellow>Some changes only take effect after a server restart:</yellow> <white><changes></white>"
+
+command:
+  usage-give: "<prefix><gray>Usage:</gray> <white>/kbe give <player> <enchantment> [level] [book|item]</white>"
+
+give:
+  unknown-enchantment: "<prefix><red>There is no enchantment</red> <white><id></white><red>.</red> <gray>Available:</gray> <white><ids></white>"
+  invalid-level: "<prefix><red>Level</red> <white><level></white> <red>is not possible for</red> <white><enchantment></white><red>.</red> <gray>Allowed:</gray> <white>1</white> <gray>to</gray> <white><max></white><gray>.</gray>"
+  invalid-item: "<prefix><red>The item</red> <white><item></white> <red>set as give-item for</red> <white><id></white> <red>does not exist or cannot carry this enchantment.</red> <gray>Check config.yml.</gray>"
+  not-registered: "<prefix><red>The enchantment</red> <white><id></white> <red>is not known to the server.</red> <gray>Restart the server after installing or updating the plugin.</gray>"
+  given: "<prefix><green>Gave</green> <white><item></white> <green>with</green> <white><enchantment></white> <green>to</green> <white><player></white><green>.</green>"
+  given-dropped: "<prefix><green>Gave</green> <white><item></white> <green>with</green> <white><enchantment></white> <green>to</green> <white><player></white><green>.</green> <yellow>The inventory was full, the item was dropped at the player's feet.</yellow>"
+  received: "<prefix><green>You received</green> <white><item></white> <green>with</green> <white><enchantment></white><green>.</green>"
+
+list:
+  header: "<prefix><gray>Enchantments (</gray><white><count></white><gray>):</gray>"
+  line: "<dark_gray> ▸</dark_gray> <white><name></white> <dark_gray>|</dark_gray> <gray><id></gray> <dark_gray>|</dark_gray> <gray>max. level</gray> <white><max></white> <dark_gray>|</dark_gray> <sources>"
+  disabled: "<red>disabled</red>"
+  command-only: "<gray>command only</gray>"
+  source-on: "<green><source></green>"
+  separator: "<dark_gray>, </dark_gray>"
+  source:
+    enchanting-table: "table"
+    anvil: "anvil"
+    trading: "trading"
+    loot: "loot"
+
+# Help (/kbe help). The syntax under "usage" is shown as it is, angle brackets in it are
+# not placeholders. The part before the first argument is the command a click puts into the
+# chat line.
+help:
+  header: "<prefix><gray>Help</gray>"
+  hint: "<gray>Hover over a command for an explanation. Click it to put it into the chat line.</gray>"
+  line: "<dark_gray> ▸</dark_gray> <white><command></white><gray><arguments></gray>"
+  hover: "<gray><description></gray><newline><dark_gray>Click to put the command into the chat line.</dark_gray>"
+  console-header: "<prefix><gray>Help</gray> <dark_gray>|</dark_gray> <gray>commands:</gray> <white><count></white>"
+  console-line: "<dark_gray> ▸</dark_gray> <white><command></white><gray><arguments></gray> <dark_gray>|</dark_gray> <gray><description></gray>"
+  entries:
+    give:
+      usage: "/kbe give <player> <enchantment> [level] [book|item]"
+      description: "Gives an enchanted book or a ready enchanted item. Works from the console, for example for reward plugins."
+    list:
+      usage: "/kbe list"
+      description: "Shows all enchantments with their levels and the ways players can get them."
+    reload:
+      usage: "/kbe reload"
+      description: "Reloads config.yml and the language files. Some values need a server restart, the plugin says which."
+    help:
+      usage: "/kbe help"
+      description: "Shows this overview."

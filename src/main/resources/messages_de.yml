@@ -2,6 +2,8 @@
 # <prefix> setzt das Präfix von unten ein. Spitze Klammern mit anderen Namen, etwa <player>,
 # sind Platzhalter, die das Plugin füllt; sie müssen erhalten bleiben.
 #
+# Farben: Erfolg grün, Fehler rot, Hinweis grau, Achtung gelb, Werte und Namen weiß.
+#
 # Fehlt hier ein Eintrag, wird der englische Text verwendet.
 
 prefix: "<gradient:#7b2ff7:#f107a3><bold>KaBoomEnchants</bold></gradient> <dark_gray>»</dark_gray> "
@@ -13,3 +15,57 @@ enchantment-name:
   tunnel_bore: "Tunnelbohrer"
   tree_feller: "Baumesser"
   arise: "Arise"
+
+plugin:
+  reloaded: "<prefix><green>Konfiguration und Sprachdateien neu geladen.</green>"
+  reload-failed: "<prefix><red>Neu laden fehlgeschlagen.</red> <gray>Der bisherige Stand bleibt aktiv. Details in der Serverkonsole.</gray>"
+  restart-needed: "<prefix><yellow>Einige Änderungen wirken erst nach einem Neustart des Servers:</yellow> <white><changes></white>"
+
+command:
+  usage-give: "<prefix><gray>Verwendung:</gray> <white>/kbe give <spieler> <verzauberung> [stufe] [book|item]</white>"
+
+give:
+  unknown-enchantment: "<prefix><red>Es gibt keine Verzauberung</red> <white><id></white><red>.</red> <gray>Verfügbar:</gray> <white><ids></white>"
+  invalid-level: "<prefix><red>Stufe</red> <white><level></white> <red>ist für</red> <white><enchantment></white> <red>nicht möglich.</red> <gray>Erlaubt:</gray> <white>1</white> <gray>bis</gray> <white><max></white><gray>.</gray>"
+  invalid-item: "<prefix><red>Das Item</red> <white><item></white><red>, eingestellt als give-item für</red> <white><id></white><red>, gibt es nicht oder es kann diese Verzauberung nicht tragen.</red> <gray>Bitte config.yml prüfen.</gray>"
+  not-registered: "<prefix><red>Die Verzauberung</red> <white><id></white> <red>ist dem Server nicht bekannt.</red> <gray>Nach dem Installieren oder Aktualisieren des Plugins den Server neu starten.</gray>"
+  given: "<prefix><white><item></white> <green>mit</green> <white><enchantment></white> <green>an</green> <white><player></white> <green>gegeben.</green>"
+  given-dropped: "<prefix><white><item></white> <green>mit</green> <white><enchantment></white> <green>an</green> <white><player></white> <green>gegeben.</green> <yellow>Das Inventar war voll, das Item liegt vor den Füßen des Spielers.</yellow>"
+  received: "<prefix><green>Du hast</green> <white><item></white> <green>mit</green> <white><enchantment></white> <green>erhalten.</green>"
+
+list:
+  header: "<prefix><gray>Verzauberungen (</gray><white><count></white><gray>):</gray>"
+  line: "<dark_gray> ▸</dark_gray> <white><name></white> <dark_gray>|</dark_gray> <gray><id></gray> <dark_gray>|</dark_gray> <gray>höchste Stufe</gray> <white><max></white> <dark_gray>|</dark_gray> <sources>"
+  disabled: "<red>ausgeschaltet</red>"
+  command-only: "<gray>nur per Befehl</gray>"
+  source-on: "<green><source></green>"
+  separator: "<dark_gray>, </dark_gray>"
+  source:
+    enchanting-table: "Tisch"
+    anvil: "Amboss"
+    trading: "Handel"
+    loot: "Loot"
+
+# Hilfe (/kbe help). Die Schreibweise unter "usage" erscheint wörtlich, spitze Klammern
+# darin sind keine Platzhalter. Der Teil vor dem ersten Argument ist der Befehl, den ein Klick
+# in die Chatzeile schreibt.
+help:
+  header: "<prefix><gray>Hilfe</gray>"
+  hint: "<gray>Fahre mit der Maus über einen Befehl für die Erklärung. Ein Klick übernimmt ihn in die Chatzeile.</gray>"
+  line: "<dark_gray> ▸</dark_gray> <white><command></white><gray><arguments></gray>"
+  hover: "<gray><description></gray><newline><dark_gray>Klicken, um den Befehl in die Chatzeile zu übernehmen.</dark_gray>"
+  console-header: "<prefix><gray>Hilfe</gray> <dark_gray>|</dark_gray> <gray>Befehle:</gray> <white><count></white>"
+  console-line: "<dark_gray> ▸</dark_gray> <white><command></white><gray><arguments></gray> <dark_gray>|</dark_gray> <gray><description></gray>"
+  entries:
+    give:
+      usage: "/kbe give <spieler> <verzauberung> [stufe] [book|item]"
+      description: "Gibt ein verzaubertes Buch oder ein fertig verzaubertes Item. Läuft auch aus der Konsole, etwa für Belohnungs-Plugins."
+    list:
+      usage: "/kbe list"
+      description: "Zeigt alle Verzauberungen mit Stufen und den Wegen, auf denen Spieler sie bekommen."
+    reload:
+      usage: "/kbe reload"
+      description: "Lädt config.yml und die Sprachdateien neu. Manche Werte brauchen einen Neustart, das Plugin sagt, welche."
+    help:
+      usage: "/kbe help"
+      description: "Zeigt diese Übersicht."
