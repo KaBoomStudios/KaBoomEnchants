@@ -12,12 +12,15 @@ import de.kaboomstudios.kaboomenchants.enchantment.CustomEnchantment;
 import de.kaboomstudios.kaboomenchants.enchantment.EnchantmentCatalog;
 import de.kaboomstudios.kaboomenchants.enchantment.RegisteredEnchantments;
 import de.kaboomstudios.kaboomenchants.message.Messages;
+import de.kaboomstudios.kaboomenchants.rules.StationRules;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Hauptklasse zur Laufzeit: meldet Listener und Befehle an, sobald der Server bereit ist.
@@ -49,6 +52,7 @@ public final class KaBoomEnchants extends JavaPlugin {
 
     private void registerEnchantmentListeners() {
         getServer().getPluginManager().registerEvents(blockBreaker, this);
+        final Map<CustomEnchantment, Enchantment> registeredEnchantments = new LinkedHashMap<>();
         for (final CustomEnchantment custom : EnchantmentCatalog.ALL) {
             final Enchantment registered = RegisteredEnchantments.of(custom);
             if (registered == null) {
@@ -56,10 +60,12 @@ public final class KaBoomEnchants extends JavaPlugin {
                         + "Restart the server after installing or updating the plugin.", custom.key().asString());
                 continue;
             }
+            registeredEnchantments.put(custom, registered);
             for (final Listener listener : custom.createListeners(this, registered)) {
                 getServer().getPluginManager().registerEvents(listener, this);
             }
         }
+        getServer().getPluginManager().registerEvents(new StationRules(this, registeredEnchantments), this);
     }
 
     /** Die Texte in der eingestellten Sprache; nach einem Reload dasselbe Objekt mit neuem Inhalt. */

@@ -28,10 +28,14 @@ language: en
 #                         another item. false also stops moving it from one item to another.
 #     trading             [restart] Librarian villagers can offer it as an enchanted book.
 #     loot                [restart] Can appear on enchanted books and items in loot chests.
-#   grindstone-removable  [reload]  The grindstone removes the enchantment. false: it stays on
-#                         the item like a curse, other enchantments are removed as usual.
+#   grindstone-removable  [reload]  The grindstone removes the enchantment. false: the grindstone
+#                         does not accept items or books with it at all, and neither does
+#                         the crafting grid repair, which also removes enchantments. (Keeping
+#                         it on the result like a curse would let players grind the same item
+#                         over and over for experience.)
 #   repairable            [reload]  false: items with this enchantment cannot be repaired in any
-#                         way (anvil, grindstone, crafting grid). They break for good.
+#                         way (anvil with material or a second item, grindstone, crafting
+#                         grid). Renaming at the anvil still works. They break for good.
 #   mending-allowed       [restart] Mending may be on the same item.
 #   netherite-upgrade     [reload]  Items with this enchantment may be upgraded to netherite at
 #                         the smithing table.
