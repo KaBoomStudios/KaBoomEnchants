@@ -1,0 +1,29 @@
+name: KaBoomEnchants
+version: '${version}'
+main: de.kaboomstudios.kaboomenchants.KaBoomEnchants
+# Eigene Verzauberungen lassen sich nur in der Bootstrap-Phase registrieren, noch bevor die
+# Welten geladen werden. Das geht ausschliesslich mit einem Paper-Plugin und diesem Einstieg.
+bootstrapper: de.kaboomstudios.kaboomenchants.KaBoomEnchantsBootstrap
+api-version: '26.1'
+description: Eigene Verzauberungen mit einstellbaren Bezugswegen.
+authors:
+  - KaBoomStudios
+
+# Befehle stehen bei Paper-Plugins nicht hier, sie werden ueber Brigadier im Code angemeldet.
+permissions:
+  kbenchants.admin:
+    description: Zugriff auf alle Verwaltungsbefehle von KaBoomEnchants.
+    default: op
+    children:
+      kbenchants.give: true
+      kbenchants.list: true
+      kbenchants.reload: true
+  kbenchants.give:
+    description: Erlaubt, verzauberte Buecher und Items zu vergeben.
+    default: op
+  kbenchants.list:
+    description: Erlaubt, alle Verzauberungen und ihre Bezugswege anzuzeigen.
+    default: op
+  kbenchants.reload:
+    description: Erlaubt, Konfiguration und Sprachdateien neu zu laden.
+    default: op
