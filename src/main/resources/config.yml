@@ -59,6 +59,32 @@ enchantments:
     netherite-upgrade: false
     weight: 1
     give-item: diamond_pickaxe
+    # [reload] Every extra block is mined as if the player mined it: protection plugins are
+    # asked for each block, Fortune and Silk Touch apply. Always skipped: blocks with an
+    # inventory (chests, shulker boxes, furnaces, barrels...), liquids, unbreakable blocks and
+    # blocks the tool would not drop (for example obsidian with an iron pickaxe).
+    #
+    # Share of the normal tool damage each extra block costs, from 0.0 to 1.0. The block the
+    # player actually mines always costs the normal amount. 0.1 means 10 %: a full 3x3x3 area
+    # (26 extra blocks) costs about 3 durability. 1.0 is like mining every block by hand.
+    # Unbreaking works as usual. If the tool breaks, mining stops.
+    durability-per-extra-block: 0.1
+    # Sneaking mines only the single block, for precise work.
+    sneak-disables: true
+    # Only mine blocks the tool is made for: a pickaxe skips dirt, a shovel skips stone. If the
+    # player mines such a block directly, no area is mined at all.
+    only-effective-blocks: true
+    # Blocks the area never mines, as block ids. The area mines instantly, no matter how hard
+    # a block is. To keep players from clearing hard blocks in bulk, add them here, for example
+    # obsidian, crying_obsidian or ancient_debris (the latter speeds up netherite a lot).
+    blocked-blocks:
+      - spawner
+      - trial_spawner
+      - vault
+      - budding_amethyst
+      - reinforced_deepslate
+      - suspicious_sand
+      - suspicious_gravel
 
   # Tree Feller (Baumesser): axes, one level. Fells the whole tree at once.
   tree_feller:

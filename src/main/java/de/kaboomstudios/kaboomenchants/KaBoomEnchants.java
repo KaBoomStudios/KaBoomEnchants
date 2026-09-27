@@ -1,5 +1,6 @@
 package de.kaboomstudios.kaboomenchants;
 
+import de.kaboomstudios.kaboomenchants.breaking.PlayerBlockBreaker;
 import de.kaboomstudios.kaboomenchants.command.GiveCommand;
 import de.kaboomstudios.kaboomenchants.command.HelpCommand;
 import de.kaboomstudios.kaboomenchants.command.KbEnchantsCommand;
@@ -7,9 +8,13 @@ import de.kaboomstudios.kaboomenchants.command.ListCommand;
 import de.kaboomstudios.kaboomenchants.command.ReloadCommand;
 import de.kaboomstudios.kaboomenchants.config.LoadMode;
 import de.kaboomstudios.kaboomenchants.config.PluginSettings;
+import de.kaboomstudios.kaboomenchants.enchantment.CustomEnchantment;
 import de.kaboomstudios.kaboomenchants.enchantment.EnchantmentCatalog;
+import de.kaboomstudios.kaboomenchants.enchantment.RegisteredEnchantments;
 import de.kaboomstudios.kaboomenchants.message.Messages;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
@@ -24,6 +29,7 @@ import java.util.List;
 public final class KaBoomEnchants extends JavaPlugin {
 
     private final PluginSettings startupSettings;
+    private final PlayerBlockBreaker blockBreaker = new PlayerBlockBreaker();
     private volatile PluginSettings settings;
     private Messages messages;
 
@@ -38,6 +44,27 @@ public final class KaBoomEnchants extends JavaPlugin {
         messages = new Messages(this);
         messages.reload(settings.language(), LoadMode.STARTUP);
         registerCommands();
+        registerEnchantmentListeners();
+    }
+
+    private void registerEnchantmentListeners() {
+        getServer().getPluginManager().registerEvents(blockBreaker, this);
+        for (final CustomEnchantment custom : EnchantmentCatalog.ALL) {
+            final Enchantment registered = RegisteredEnchantments.of(custom);
+            if (registered == null) {
+                getSLF4JLogger().error("The enchantment {} is not registered on this server, it has no effect. "
+                        + "Restart the server after installing or updating the plugin.", custom.key().asString());
+                continue;
+            }
+            for (final Listener listener : custom.createListeners(this, registered)) {
+                getServer().getPluginManager().registerEvents(listener, this);
+            }
+        }
+    }
+
+    /** Gemeinsamer Abbau „wie vom Spieler“ für alle Verzauberungen, die mehrere Blöcke abbauen. */
+    public PlayerBlockBreaker blockBreaker() {
+        return blockBreaker;
     }
 
     /**

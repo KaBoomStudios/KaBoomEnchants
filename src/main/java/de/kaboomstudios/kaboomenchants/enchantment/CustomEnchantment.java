@@ -1,11 +1,13 @@
 package de.kaboomstudios.kaboomenchants.enchantment;
 
+import de.kaboomstudios.kaboomenchants.KaBoomEnchants;
 import io.papermc.paper.registry.TypedKey;
 import io.papermc.paper.registry.data.EnchantmentRegistryEntry.EnchantmentCost;
 import io.papermc.paper.registry.keys.EnchantmentKeys;
 import io.papermc.paper.registry.tag.TagKey;
 import net.kyori.adventure.key.Key;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemType;
 
@@ -57,6 +59,16 @@ public interface CustomEnchantment {
      */
     default boolean enchantingTableApplicable() {
         return true;
+    }
+
+    /**
+     * Listener, die die Wirkung umsetzen. Werden einmal beim Aktivieren des Plugins angemeldet;
+     * ob die Verzauberung eingeschaltet ist, prüfen sie selbst bei jedem Ereignis.
+     *
+     * @param registered die Verzauberung, wie der Server sie beim Start registriert hat
+     */
+    default List<Listener> createListeners(final KaBoomEnchants plugin, final Enchantment registered) {
+        return List.of();
     }
 
     default Key key() {
