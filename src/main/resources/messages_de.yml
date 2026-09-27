@@ -1,0 +1,15 @@
+# Alle Texte in MiniMessage-Schreibweise, siehe https://docs.advntr.dev/minimessage/format.html
+# <prefix> setzt das Präfix von unten ein. Spitze Klammern mit anderen Namen, etwa <player>,
+# sind Platzhalter, die das Plugin füllt; sie müssen erhalten bleiben.
+#
+# Fehlt hier ein Eintrag, wird der englische Text verwendet.
+
+prefix: "<gradient:#7b2ff7:#f107a3><bold>KaBoomEnchants</bold></gradient> <dark_gray>»</dark_gray> "
+
+# Namen der Verzauberungen auf Items und Büchern. Das Spiel färbt sie grau wie
+# Vanilla-Verzauberungen und hängt die Stufe an. Wird nur beim Serverstart gelesen,
+# Änderungen brauchen einen Neustart.
+enchantment-name:
+  tunnel_bore: "Tunnelbohrer"
+  tree_feller: "Baumesser"
+  arise: "Arise"

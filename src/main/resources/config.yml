@@ -1,0 +1,92 @@
+# KaBoomEnchants
+#
+# [restart]  The value is read while the server starts, before worlds are loaded, and only
+#            takes effect after a full server restart. /kbe reload does not apply it.
+# [reload]   /kbe reload is enough.
+#
+# [restart]  Wird beim Serverstart gelesen und wirkt erst nach einem Neustart des Servers.
+# [reload]   /kbe reload genuegt.
+
+# Language of all texts: "en" (English) or "de" (German). For another language, copy one of
+# the messages_<language>.yml files in this folder, rename it and enter its language here.
+# Texts missing from a language file fall back to English.
+# Chat texts: [reload]. Names of the enchantments shown on items: [restart].
+#
+# Sprache der Texte: "en" (Englisch) oder "de" (Deutsch).
+# Chattexte: [reload]. Namen der Verzauberungen auf Items: [restart].
+language: en
+
+# One block per enchantment. The block name is the id of the enchantment and must not be changed.
+# Settings shared by all enchantments:
+#
+#   enabled               [restart] false: the enchantment stays known to the server, so items
+#                         keep it, but it has no effect and cannot be obtained in any way
+#                         except /kbe give.
+#   sources               How players can obtain the enchantment. /kbe give always works.
+#     enchanting-table    [restart] Can be offered by the enchanting table.
+#     anvil               [reload]  Can be put onto an item at the anvil, from a book or from
+#                         another item. false also stops moving it from one item to another.
+#     trading             [restart] Librarian villagers can offer it as an enchanted book.
+#     loot                [restart] Can appear on enchanted books and items in loot chests.
+#   grindstone-removable  [reload]  The grindstone removes the enchantment. false: it stays on
+#                         the item like a curse, other enchantments are removed as usual.
+#   repairable            [reload]  false: items with this enchantment cannot be repaired in any
+#                         way (anvil, grindstone, crafting grid). They break for good.
+#   mending-allowed       [restart] Mending may be on the same item.
+#   netherite-upgrade     [reload]  Items with this enchantment may be upgraded to netherite at
+#                         the smithing table.
+#   weight                [restart] How often the enchanting table and random loot pick it
+#                         compared to others (1 to 1024, 1 is the rarest). For pickaxes:
+#                         Efficiency 10, Unbreaking 5, Fortune 2, Silk Touch 1.
+#   give-item             [reload]  Item created by "/kbe give ... item".
+#
+# Ein Block pro Verzauberung, der Blockname ist die feste ID. Die Schalter sind oben auf
+# Englisch erklaert; "enabled: false" laesst die Verzauberung auf Items bestehen, ohne Wirkung.
+enchantments:
+
+  # Tunnel Bore (Tunnelbohrer): pickaxes and shovels, levels I to III.
+  # Mines 3x3, 5x5 or 7x7 around the block, deeper in the direction the player looks.
+  tunnel_bore:
+    enabled: true
+    sources:
+      enchanting-table: false
+      anvil: false
+      trading: false
+      loot: false
+    grindstone-removable: false
+    repairable: false
+    mending-allowed: false
+    netherite-upgrade: false
+    weight: 1
+    give-item: diamond_pickaxe
+
+  # Tree Feller (Baumesser): axes, one level. Fells the whole tree at once.
+  tree_feller:
+    enabled: true
+    sources:
+      enchanting-table: false
+      anvil: false
+      trading: false
+      loot: false
+    grindstone-removable: false
+    repairable: false
+    mending-allowed: false
+    netherite-upgrade: false
+    weight: 1
+    give-item: diamond_axe
+
+  # Arise: totem of undying, levels I to III. Saves the holder 2, 3 or 4 times in total.
+  # After each save the totem comes back one level lower; level I turns into a plain totem.
+  # The enchanting table never enchants totems in vanilla, so there is no enchanting-table
+  # switch here. Trading and loot hand out Arise as an enchanted book, which then needs the
+  # anvil to reach a totem. repairable, mending-allowed and netherite-upgrade do not apply
+  # to totems.
+  arise:
+    enabled: true
+    sources:
+      anvil: false
+      trading: false
+      loot: false
+    grindstone-removable: false
+    weight: 1
+    give-item: totem_of_undying

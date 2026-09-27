@@ -1,0 +1,15 @@
+# All texts use MiniMessage, see https://docs.advntr.dev/minimessage/format.html
+# <prefix> inserts the prefix defined below. Other angle brackets, such as <player>, are
+# placeholders filled in by the plugin and have to stay in place.
+#
+# This file is also the fallback: whenever another language file misses an entry,
+# the text from here is used instead.
+
+prefix: "<gradient:#7b2ff7:#f107a3><bold>KaBoomEnchants</bold></gradient> <dark_gray>»</dark_gray> "
+
+# Names of the enchantments as shown on items and books. The game colors them gray like
+# vanilla enchantments and adds the level. Read once at server start: changes need a restart.
+enchantment-name:
+  tunnel_bore: "Tunnel Bore"
+  tree_feller: "Tree Feller"
+  arise: "Arise"
