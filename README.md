@@ -221,6 +221,8 @@ The test server runs in the folder `run` inside the project. To use a different 
 
 ```properties
 kbenchants.runDirectory=/path/to/test-server
+# Optional: further plugin jars to load into the test server, separated by commas
+kbenchants.extraPluginJars=/path/to/OtherPlugin.jar
 ```
 
 ## Status
@@ -235,7 +237,7 @@ The plugin is in active development and not released yet.
 | Tree Feller | done |
 | Arise | done |
 | Rules at anvil, grindstone, crafting grid and smithing table | done |
-| Final test together with a crate plugin | open |
+| Tested together with a crate plugin (stored item reward and `kbe give` as console command) | done |
 
 Planned later: more enchantments, support for Paper 26.2 and newer, and a safe way to remove the
 plugin's enchantments from all items before uninstalling.

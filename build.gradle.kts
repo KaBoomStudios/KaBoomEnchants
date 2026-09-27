@@ -58,7 +58,14 @@ val localBuildSettings = Properties().apply {
 }
 val testServerDirectory = localBuildSettings.getProperty("kbenchants.runDirectory") ?: "run"
 
+// Weitere Plugins fuer den Testserver, etwa ein Belohnungs-Plugin fuer einen gemeinsamen Test.
+// Sie werden beim Start eingebunden, ohne im plugins-Ordner des Servers zu liegen. Die Pfade sind
+// ebenfalls rechnerbezogen und stehen deshalb in gradle-local.properties, mehrere durch Komma getrennt.
+val extraPluginJars = localBuildSettings.getProperty("kbenchants.extraPluginJars")
+    ?.split(',')?.map(String::trim)?.filter(String::isNotEmpty).orEmpty()
+
 tasks.runServer {
     minecraftVersion("26.1.2")
     runDirectory = file(testServerDirectory)
+    pluginJars.from(extraPluginJars)
 }
